@@ -1,5 +1,5 @@
 //65. Valid Number
-//incomplete
+//incomplete, in process of solving but not solved
 
 class Solution {
     public boolean isNumber(String s) {
