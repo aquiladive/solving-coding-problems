@@ -5,9 +5,12 @@ class Solution {
     public boolean isNumber(String s) {
         String copy = s.toLowerCase();
         boolean check = true;
-        if(copy.charAt(0) == '-' || copy.charAt(0) == '+' || Character.isDigit(copy.charAt(0)) || (copy.charAt(0) == '.' && copy.length() > 1 && Character.isDigit(copy.charAt(1)))) {
+        boolean dotCheck = false;
+        if(copy.charAt(0) == '-' || copy.charAt(0) == '+' || Character.isDigit(copy.charAt(0)) || (copy.charAt(0) == '.' && copy.length() > 1)) {
+            if(copy.charAt(0) == '.')
+                dotCheck = true;
             for(int i = 1; i < copy.length(); i++) {
-                if(copy.charAt(i) == 'e') {
+                if(copy.charAt(i) == 'e' && Character.isDigit(copy.charAt(i-1))) {
                     String[] byE = copy.split("e");
                     if(byE.length != 2)
                         return false;
@@ -15,6 +18,8 @@ class Solution {
                     break;
                 }
                 if(copy.charAt(i) == '.') {
+                    if(dotCheck)
+                        return false;
                     if(i == copy.length()-1)
                         return true;
                     String[] decimal = copy.split("\\.");
@@ -33,8 +38,10 @@ class Solution {
     }
 
     public boolean eCheck(String s) {
-        if(Character.isLetter(s.charAt(0)) || s.charAt(0) == '.')
+        if(((s.charAt(0) == '-' || s.charAt(0) == '+') && s.length() > 1) || Character.isDigit(s.charAt(0)));
+        else
             return false;
+
         for(int i = 1; i < s.length(); i++)
             if(!Character.isDigit(s.charAt(i)))
                 return false;
@@ -42,8 +49,13 @@ class Solution {
     }
 
     public boolean decimalCheck(String s) {
-        for(int i = 0; i < s.length(); i++)
-            if(!Character.isDigit(s.charAt(i)))
+        boolean eCheck = false;
+        if(!Character.isDigit(s.charAt(0)))
+            return false;
+        for(int i = 1; i < s.length(); i++)
+            if(s.charAt(i) == 'e' && !eCheck)
+                eCheck = true;
+            else if(!Character.isDigit(s.charAt(i)))
                 return false;
         return true;
     }
