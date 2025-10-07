@@ -1,7 +1,7 @@
 //28. Find the Index of the First Occurrence in a String
 //runtime beats only 19.18%, memory beats 66.33%
 
-class Solution {
+class Solution1 {
     public int strStr(String haystack, String needle) {
         int count = 0, index = -1, charIndex = 0;
         for(int i = 0; i < haystack.length(); i++) {
@@ -20,5 +20,14 @@ class Solution {
             }
         }
         return index;
+    }
+}
+
+//second solution, using in-built function
+//runtime beats 100%, memory beats 90.67%
+
+class Solution2 {
+    public int strStr(String haystack, String needle) {
+        return haystack.indexOf(needle);
     }
 }
