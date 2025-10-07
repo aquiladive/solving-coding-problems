@@ -1,0 +1,42 @@
+//36. Valid Sudoku
+//runtime beats 40.43%, memory beats 66.05%
+
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        for(int i = 0; i < 9; i++) {
+            List<Character> group = new ArrayList<>();
+            for(int x = 0; x < 9; x++) {
+                if(group.contains(board[i][x]))
+                    return false;
+                else if(board[i][x] != '.')
+                    group.add(board[i][x]);
+            }
+            
+            group.clear();
+            
+            for(int y = 0; y < 9; y++) {
+                if(group.contains(board[y][i]))
+                    return false;
+                else if(board[y][i] != '.')
+                    group.add(board[y][i]);
+            }
+        }
+
+        List<Character> group = new ArrayList<>();
+
+        for(int i = 0; i < 9; i=i+3) {
+            for(int j = 0; j < 9; j++) {
+                for(int k = 0; k < 3; k++) {
+                    if(group.contains(board[i+k][j]))
+                        return false;
+                    else if(board[i+k][j] != '.')
+                        group.add(board[i+k][j]);
+                }
+                if(j % 3 == 2)
+                    group.clear();
+            }
+        }
+
+        return true;
+    }
+}
