@@ -79,3 +79,42 @@ class Solution {
         return reverse;
     }
 }
+
+//cleaning up third solution to improve memory
+//runtime beats 81.27%, memory beats 73.30%
+
+class Solution {
+    public int reverse(int x) {
+        int count = 0;
+        int copy = x;
+        if(x < 0) {
+            x *= -1;
+        }
+        int reverse = 0;
+        while(x > 0) {
+            reverse = (reverse * 10) + x % 10;
+            x = x/10;
+            count++;
+        }
+        if(reverse < 0)
+            return 0;
+        if(copy < 0)
+            reverse *= -1;
+        if(count == 10) {
+            if(reverseFail(reverse, copy, count))
+                return 0;
+        }
+        return reverse;
+    }
+
+    public boolean reverseFail(int reverse, int x, int count) {
+        for(int i = count-1; i > 0; i--) {
+            if((x % 10) != (int)(reverse/(Math.pow(10, i))))
+                return true;
+            x = x/10;
+            reverse = reverse % (int)(Math.pow(10, i));
+        }
+        return false;
+    }
+}
+
