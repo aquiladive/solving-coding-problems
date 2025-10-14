@@ -1,5 +1,5 @@
 //6. Zigzag Conversion
-//runtime beats only 20.44%, memory only beats 33.22%
+//runtime beats only 22.00%, memory only beats 33.22%
 
 class Solution {
     public String convert(String s, int numRows) {
@@ -24,8 +24,7 @@ class Solution {
                     zigzag += Character.toString(s.charAt(count));
                     count += shift;
                     if(shift == 2*(numRows-i)) {
-                        int opposite = numRows - i;
-                        shift = 2*(numRows-opposite);
+                        shift = 2*i;
                     }
                     else {
                         shift = 2*(numRows-i);
