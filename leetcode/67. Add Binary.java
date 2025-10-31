@@ -48,3 +48,31 @@ class Solution {
         return sum;
     }
 }
+
+//second solution, a different path
+//runtime beats only 13.73%, memory beats only 5.71%
+
+class Solution {
+    public String addBinary(String a, String b) {
+        String sum = "";
+        int carryover = 0, i = a.length()-1, j = b.length()-1;
+        int aNum = 0, bNum = 0;
+        while(i >= 0 || j >= 0) {
+            if(i < 0) aNum = 0;
+            if(j < 0) bNum = 0;
+            if(i >= 0) aNum = a.charAt(i--) - '0';
+            if(j >= 0) bNum = b.charAt(j--) - '0';
+            sum = ((aNum+bNum+carryover)%2) + sum;
+
+            if((aNum+bNum+carryover) > 1) carryover = 1;
+            else carryover = 0;
+            
+            if(i < 0 && j < 0)
+                break;
+        }
+        if(carryover == 1) {
+            sum = "1" + sum;
+        }
+        return sum;
+    }
+}
